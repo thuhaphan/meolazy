@@ -9,20 +9,22 @@ import org.junit.Test;
 
 import static com.jayway.restassured.RestAssured.given;
 
+@SuppressWarnings("unchecked")
 public class ValuationTest {
 
     @Test
     public void TC01_registrationSuccessful()
     {
-        RestAssured.baseURI ="http://restapi.demoqa.com/customer";
+        RestAssured.baseURI ="http://restapi.demoqa.com";
+        RestAssured.basePath = "/customer";
         RequestSpecification request = given();
 
         JSONObject requestParams = new JSONObject();
         requestParams.put("FirstName", "Ha"); // Cast
         requestParams.put("LastName", "Phan");
-        requestParams.put("UserName", "hakudo02");
+        requestParams.put("UserName", "hakudo082");
         requestParams.put("Password", "password1");
-        requestParams.put("Email",  "hakudo02@gmail.com");
+        requestParams.put("Email",  "hakudo082@gmail.com");
 
         request.body(requestParams.toJSONString());
         Response response = request.post("/register");
