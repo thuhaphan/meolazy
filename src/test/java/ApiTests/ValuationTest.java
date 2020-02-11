@@ -20,9 +20,9 @@ public class ValuationTest {
         JSONObject requestParams = new JSONObject();
         requestParams.put("FirstName", "Ha"); // Cast
         requestParams.put("LastName", "Phan");
-        requestParams.put("UserName", "hakudo224622");
+        requestParams.put("UserName", "hakudo02");
         requestParams.put("Password", "password1");
-        requestParams.put("Email",  "hakudo22462@gmail.com");
+        requestParams.put("Email",  "hakudo02@gmail.com");
 
         request.body(requestParams.toJSONString());
         Response response = request.post("/register");
