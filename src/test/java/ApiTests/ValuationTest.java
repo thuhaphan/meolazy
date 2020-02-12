@@ -1,33 +1,38 @@
 package ApiTests;
 
+import com.github.javafaker.Faker;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
 import static com.jayway.restassured.RestAssured.given;
 
-@SuppressWarnings("unchecked")
+//@SuppressWarnings("unchecked")
 public class ValuationTest {
 
     @Test
     public void TC01_registrationSuccessful()
     {
         RestAssured.baseURI ="http://restapi.demoqa.com";
-        RestAssured.basePath = "/customer";
+        RestAssured.basePath = "/customer/register";
         RequestSpecification request = given();
 
-        JSONObject requestParams = new JSONObject();
-        requestParams.put("FirstName", "Ha"); // Cast
-        requestParams.put("LastName", "Phan");
-        requestParams.put("UserName", "hakudo082");
-        requestParams.put("Password", "password1");
-        requestParams.put("Email",  "hakudo082@gmail.com");
+        Faker faker = new Faker();
 
-        request.body(requestParams.toJSONString());
-        Response response = request.post("/register");
+        String username = faker.name().username();
+
+        JSONObject requestParams = new JSONObject();
+        requestParams.put("FirstName", "First"); // Cast
+        requestParams.put("LastName", "Last");
+        requestParams.put("UserName", username);
+        requestParams.put("Password", "password1");
+        requestParams.put("Email",  username+"@gmail.com");
+
+        request.body(requestParams.toString());
+        Response response = request.post();
 
         int statusCode = response.getStatusCode();
         Assert.assertEquals(201, statusCode);
@@ -47,7 +52,7 @@ public class ValuationTest {
         requestParams.put("Mileage", "20000");
         requestParams.put("ZipCode", "92503");
 
-        request.body(requestParams.toJSONString());
+        request.body(requestParams.toString());
         Response response = request.post("/valuation/values?api_key=4yb2g62my3z5detd38zt9839");
 
         int statusCode = response.getStatusCode();
